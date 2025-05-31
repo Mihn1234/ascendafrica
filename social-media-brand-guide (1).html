@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCEND AFRICA - Social Media Brand Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1E3D59 0%, #41B3A3 50%, #F26419 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        .brand-colors {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .color-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .color-sample {
+            width: 100%;
+            height: 80px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .section {
+            background: white;
+            margin: 30px 0;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .section h2 {
+            color: #1E3D59;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 4px solid #F26419;
+            padding-bottom: 15px;
+        }
+        
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .platform-card {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid #eee;
+            transition: all 0.3s ease;
+        }
+        
+        .platform-card:hover {
+            border-color: #F26419;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .platform-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .platform-card h3 {
+            color: #1E3D59;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .asset-preview {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        
+        .download-btn {
+            background: #F26419;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 14px;
+            margin: 5px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .download-btn:hover {
+            background: #E55A10;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .size-info {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 10px 0;
+            font-style: italic;
+        }
+        
+        .handles-section {
+            background: linear-gradient(135deg, #41B3A3, #1E3D59);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            margin: 40px 0;
+        }
+        
+        .handles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .handle-option {
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .handle-option h4 {
+            color: #E8C547;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+        
+        .handle-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .handle-list li {
+            background: rgba(255,255,255,0.1);
+            margin: 8px 0;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        
+        .recommended {
+            border: 2px solid #E8C547;
+            background: rgba(232, 197, 71, 0.2);
+        }
+        
+        .content-templates {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .template-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .template-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .template-preview {
+            height: 200px;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .template-info {
+            padding: 20px;
+        }
+        
+        .template-info h4 {
+            color: #1E3D59;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .footer {
+            background: #1E3D59;
+            color: white;
+            padding: 40px;
+            text-align: center;
+            border-radius: 20px;
+            margin-top: 50px;
+        }
+        
+        .footer h3 {
+            color: #E8C547;
+            margin-bottom: 20px;
+        }
+        
+        .quick-download-all {
+            background: #E8C547;
+            color: #1E3D59;
+            padding: 20px 40px;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: 900;
+            margin: 20px;
+            display: inline-block;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .quick-download-all:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div style="display: flex; justify-content: center; margin-bottom: 30px;">
+                <div style="display: flex; gap: 8px; align-items: end;">
+                    <div style="width: 20px; height: 12px; background: #41B3A3; border-radius: 2px;"></div>
+                    <div style="width: 20px; height: 16px; background: #41B3A3; border-radius: 2px;"></div>
+                    <div style="width: 20px; height: 20px; background: #ffffff; border-radius: 2px;"></div>
+                    <div style="width: 20px; height: 24px; background: #ffffff; border-radius: 2px;"></div>
+                    <div style="width: 20px; height: 28px; background: #F26419; border-radius: 2px;"></div>
+                </div>
+            </div>
+            <h1>ASCEND AFRICA</h1>
+            <p>Social Media Brand Guide & Asset Library</p>
+            <p style="font-size: 1rem; margin-top: 10px;">Sports Excellence Foundation</p>
+        </div>
+
+        <!-- Brand Colors -->
+        <div class="section">
+            <h2>🎨 Brand Color Palette</h2>
+            <div class="brand-colors">
+                <div class="color-card">
+                    <div class="color-sample" style="background: #1E3D59;"></div>
+                    <h4>Deep Navy Blue</h4>
+                    <p><strong>#1E3D59</strong></p>
+                    <p>Primary brand color for trust and stability</p>
+                </div>
+                <div class="color-card">
+                    <div class="color-sample" style="background: #F26419;"></div>
+                    <h4>Vibrant Orange</h4>
+                    <p><strong>#F26419</strong></p>
+                    <p>Energy and action color</p>
+                </div>
+                <div class="color-card">
+                    <div class="color-sample" style="background: #41B3A3;"></div>
+                    <h4>Teal Green</h4>
+                    <p><strong>#41B3A3</strong></p>
+                    <p>Growth and harmony</p>
+                </div>
+                <div class="color-card">
+                    <div class="color-sample" style="background: #E8C547;"></div>
+                    <h4>Golden Yellow</h4>
+                    <p><strong>#E8C547</strong></p>
+                    <p>Achievement and excellence</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Media Handles -->
+        <div class="handles-section">
+            <h2 style="color: white; text-align: center; margin-bottom: 30px;">📱 Recommended Social Media Handles</h2>
+            <div class="handles-grid">
+                <div class="handle-option recommended">
+                    <h4>✨ RECOMMENDED - Direct & Clear</h4>
+                    <ul class="handle-list">
+                        <li>@AscendAfrica</li>
+                        <li>@AscendAfricaSports</li>
+                        <li>@AscendAfricaFoundation</li>
+                    </ul>
+                    <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.9;">Easy to remember, professional, SEO-friendly</p>
+                </div>
+                <div class="handle-option">
+                    <h4>Action-Oriented Options</h4>
+                    <ul class="handle-list">
+                        <li>@RiseWithAscend</li>
+                        <li>@AscendSportsAfrica</li>
+                        <li>@TransformWithAscend</li>
+                    </ul>
+                </div>
+                <div class="handle-option">
+                    <h4>Inspiring Alternatives</h4>
+                    <ul class="handle-list">
+                        <li>@AscendingAfrica</li>
+                        <li>@AfricaAscends</li>
+                        <li>@AscendExcellence</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Platform Assets -->
+        <div class="section">
+            <h2>📱 Platform-Specific Assets</h2>
+            
+            <!-- Facebook -->
+            <div class="platform-grid">
+                <div class="platform-card">
+                    <div class="platform-icon">📘</div>
+                    <h3>FACEBOOK</h3>
+                    
+                    <div class="asset-preview">
+                        <h4>Profile Picture</h4>
+                        <svg width="120" height="120" viewBox="0 0 180 180" style="border-radius: 50%;">
+                            <rect width="180" height="180" fill="#1E3D59" rx="90"/>
+                            <g transform="translate(90, 90)">
+                                <rect x="-35" y="-15" width="14" height="8" fill="#41B3A3" rx="1"/>
+                                <rect x="-17" y="-20" width="14" height="12" fill="#41B3A3" rx="1"/>
+                                <rect x="1" y="-25" width="14" height="16" fill="#ffffff" rx="1"/>
+                                <rect x="19" y="-30" width="14" height="20" fill="#ffffff" rx="1"/>
+                                <rect x="37" y="-35" width="14" height="24" fill="#F26419" rx="1"/>
+                                <text x="0" y="25" font-family="Arial" font-size="18" font-weight="900" fill="#ffffff" text-anchor="middle">ASCEND</text>
+                                <text x="0" y="40" font-family="Arial" font-size="12" font-weight="300" fill="#E8C547" text-anchor="middle">AFRICA</text>
+                            </g>
+                        </svg>
+                        <div class="size-info">180 x 180 pixels</div>
+                        <button onclick="downloadFacebookProfile()" class="download-btn">Download PNG</button>
+                        <button onclick="downloadFacebookProfileSVG()" class="download-btn">Download SVG</button>
+                    </div>
+                    
+                    <div class="asset-preview">
+                        <h4>Cover Photo</h4>
+                        <svg width="200" height="76" viewBox="0 0 820 312">
+                            <defs>
+                                <linearGradient id="fbCoverGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:#1E3D59"/>
+                                    <stop offset="50%" style="stop-color:#41B3A3"/>
+                                    <stop offset="100%" style="stop-color:#F26419"/>
+                                </linearGradient>
+                            </defs>
+                            <rect width="820" height="312" fill="url(#fbCoverGrad1)"/>
+                            <text x="410" y="180" font-family="Arial" font-size="36" font-weight="900" fill="#ffffff" text-anchor="middle">ASCEND AFRICA</text>
+                        </svg>
+                        <div class="size-info">820 x 312 pixels</div>
+                        <button onclick="downloadFacebookCover()" class="download-btn">Download PNG</button>
+                        <button onclick="downloadFacebookCoverSVG()" class="download-btn">Download SVG</button>
+                    </div>
+                </div>
+
+                <!-- Instagram -->
+                <div class="platform-card">
+                    <div class="platform-icon">📷</div>
+                    <h3>INSTAGRAM</h3>
+                    
+                    <div class="asset-preview">
+                        <h4>Profile Picture</h4>
+                        <svg width="80" height="80" viewBox="0 0 110 110" style="border-radius: 50%;">
+                            <rect width="110" height="110" fill="#1E3D59" rx="55"/>
+                            <g transform="translate(55, 55)">
+                                <rect x="-25" y="-10" width="10" height="6" fill="#41B3A3" rx="1"/>
+                                <rect x="-12" y="-14" width="10" height="8" fill="#41B3A3" rx="1"/>
+                                <rect x="1" y="-18" width="10" height="12" fill="#ffffff" rx="1"/>
+                                <rect x="14" y="-22" width="10" height="16" fill="#ffffff" rx="1"/>
+                                <rect x="27" y="-26" width="10" height="20" fill="#F26419" rx="1"/>
+                                <text x="0" y="15" font-family="Arial" font-size="11" font-weight="900" fill="#ffffff" text-anchor="middle">ASCEND</text>
+                                <text x="0" y="25" font-family="Arial" font-size="7" font-weight="300" fill="#E8C547" text-anchor="middle">AFRICA</text>
+                            </g>
+                        </svg>
+                        <div class="size-info">110 x 110 pixels</div>
+                        <button onclick="downloadInstagramProfile()" class="download-btn">Download PNG</button>
+                        <button onclick="downloadInstagramProfileSVG()" class="download-btn">Download SVG</button>
+                    </div>
+                    
+                    <div class="asset-preview">
+                        <h4>Story Highlights</h4>
+                        <div style="display: flex; gap: 10px; justify-content: center;">
+                            <svg width="50" height="50" viewBox="0 0 110 110" style="border-radius: 50%;">
+                                <rect width="110" height="110" fill="#F26419" rx="55"/>
+                                <text x="55" y="70" font-family="Arial" font-size="24" font-weight="900" fill="#ffffff" text-anchor="middle">⚽</text>
+                            </svg>
+                            <svg width="50" height="50" viewBox="0 0 110 110" style="border-radius: 50%;">
+                                <rect width="110" height="110" fill="#41B3A3" rx="55"/>
+                                <text x="55" y="70" font-family="Arial" font-size="24" font-weight="900" fill="#ffffff" text-anchor="middle">🎓</text>
+                            </svg>
+                            <svg width="50" height="50" viewBox="0 0 110 110" style="border-radius: 50%;">
+                                <rect width="110" height="110" fill="#1E3D59" rx="55"/>
+                                <text x="55" y="70" font-family="Arial" font-size="24" font-weight="900" fill="#ffffff" text-anchor="middle">🏆</text>
+                            </svg>
+                        </div>
+                        <div class="size-info">Sports | Education | Achievements</div>
+                        <button onclick="downloadInstagramHighlights()" class="download-btn">Download All PNG</button>
+                    </div>
+                </div>
+
+                <!-- LinkedIn -->
+                <div class="platform-card">
+                    <div class="platform-icon">💼</div>
+                    <h3>LINKEDIN</h3>
+                    
+                    <div class="asset-preview">
+                        <h4>Profile Picture</h4>
+                        <svg width="100" height="100" viewBox="0 0 300 300" style="border-radius: 50%;">
+                            <rect width="300" height="300" fill="#ffffff" rx="150"/>
+                            <circle cx="150" cy="150" r="145" fill="none" stroke="#1E3D59" stroke-width="10"/>
+                            <g transform="translate(150, 150)">
+                                <text x="0" y="10" font-family="Arial" font-size="20" font-weight="900" fill="#1E3D59" text-anchor="middle">ASCEND</text>
+                                <text x="0" y="25" font-family="Arial" font-size="12" font-weight="300" fill="#5D5C61" text-anchor="middle">AFRICA</text>
+                            </g>
+                        </svg>
+                        <div class="size-info">300 x 300 pixels</div>
+                        <button onclick="downloadLinkedInProfile()" class="download-btn">Download PNG</button>
+                        <button onclick="downloadLinkedInProfileSVG()" class="download-btn">Download SVG</button>
+                    </div>
+                </div>
+
+                <!-- YouTube -->
+                <div class="platform-card">
+                    <div class="platform-icon">🎥</div>
+                    <h3>YOUTUBE</h3>
+                    
+                    <div class="asset-preview">
+                        <h4>Channel Profile</h4>
+                        <svg width="100" height="100" viewBox="0 0 800 800" style="border-radius: 50%;">
+                            <rect width="800" height="800" fill="#ffffff" rx="400"/>
+                            <circle cx="400" cy="400" r="380" fill="#1E3D59"/>
+                            <text x="400" y="420" font-family="Arial" font-size="60" font-weight="900" fill="#ffffff" text-anchor="middle">ASCEND</text>
+                            <text x="400" y="460" font-family="Arial" font-size="40" font-weight="300" fill="#E8C547" text-anchor="middle">AFRICA</text>
+                        </svg>
+                        <div class="size-info">800 x 800 pixels</div>
+                        <button onclick="downloadYouTubeProfile()" class="download-btn">Download PNG</button>
+                        <button onclick="downloadYouTubeProfileSVG()" class="download-btn">Download SVG</button>
+                    </div>
+                </div>
+
+                <!-- Twitter/X -->
+                <div class="platform-card">
+                    <div class="platform-icon">🐦</div>
+                    <h3>TWITTER/X</h3>
+                    
+                    <div class="asset-preview">
+                        <h4>Profile Picture</h4>
+                        <svg width="100" height="100" viewBox="0 0 400 400" style="border-radius: 50%;">
+                            <rect width="400" height="400" fill="#1E3D59" rx="200"/>
+                            <text x="200" y="220" font-family="Arial" font-size="32" font-weight="900" fill="#ffffff" text-anchor="middle">ASCEND</text>
+                            <text x="200" y="245" font-family="Arial" font-size="20" font-weight="300" fill="#E8C547" text-anchor="middle">AFRICA</text>
+                        </svg>
+                        <div class="size-info">400 x 400 pixels</div>
+                        <button onclick="downloadTwitterProfile()" class="download-btn">Download PNG</button>
+                        <button onclick="downloadTwitterProfileSVG()" class="download-btn">Download SVG</button>
+                    </div>
+                </div>
+
+                <!-- Additional Platforms -->
+                <div class="platform-card">
+                    <div class="platform-icon">🎵</div>
+                    <h3>TIKTOK</h3>
+                    <div class="asset-preview">
+                        <h4>Profile Picture</h4>
+                        <div class="size-info">200 x 200 pixels</div>
+                        <button onclick="downloadTikTokProfile()" class="download-btn">Download PNG</button>
+                    </div>
+                </div>
+
+                <div class="platform-card">
+                    <div class="platform-icon">💬</div>
+                    <h3>WHATSAPP</h3>
+                    <div class="asset-preview">
+                        <h4>Profile Picture</h4>
+                        <div class="size-info">640 x 640 pixels</div>
+                        <button onclick="downloadWhatsAppProfile()" class="download-btn">Download PNG</button>
+                    </div>
+                </div>
+
+                <div class="platform-card">
+                    <div class="platform-icon">👻</div>
+                    <h3>SNAPCHAT</h3>
+                    <div class="asset-preview">
+                        <h4>Profile Picture</h4>
+                        <div class="size-info">500 x 500 pixels</div>
+                        <button onclick="downloadSnapchatProfile()" class="download-btn">Download PNG</button>
+                    </div>
+                </div>
+
+                <div class="platform-card">
+                    <div class="platform-icon">📌</div>
+                    <h3>PINTEREST</h3>
+                    <div class="asset-preview">
+                        <h4>Profile Picture</h4>
+                        <div class="size-info">165 x 165 pixels</div>
+                        <button onclick="downloadPinterestProfile()" class="download-btn">Download PNG</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Templates -->
+        <div class="section">
+            <h2>📝 Content Templates</h2>
+            <div class="content-templates">
+                <div class="template-card">
+                    <div class="template-preview" style="background: linear-gradient(45deg, #1E3D59, #F26419);">
+                        <span style="color: white; font-size: 2rem;">💡</span>
+                    </div>
+                    <div class="template-info">
+                        <h4>Motivational Quote</h4>
+                        <p>Inspirational quote template with brand styling</p>
+                        <div class="size-info">1080 x 1080 pixels</div>
+                        <button onclick="downloadMotivationalQuote()" class="download-btn">Download PNG</button>
+                    </div>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-preview" style="background: linear-gradient(45deg, #41B3A3, #1E3D59);">
+                        <span style="color: white; font-size: 2rem;">🏆</span>
+                    </div>
+                    <div class="template-info">
+                        <h4>Achievement Post</h4>
+                        <p>Template for celebrating milestones and achievements</p>
+                        <div class="size-info">1080 x 1080 pixels</div>
+                        <button onclick="downloadAchievementPost()" class="download-btn">Download PNG</button>
+                    </div>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-preview" style="background: #1E3D59;">
+                        <span style="color: #E8C547; font-size: 2rem;">📱</span>
+                    </div>
+                    <div class="template-info">
+                        <h4>Instagram Story</h4>
+                        <p>Vertical story template for Instagram and social media</p>
+                        <div class="size-info">1080 x 1920 pixels</div>
+                        <button onclick="downloadInstagramStory()" class="download-btn">Download PNG</button>
+                    </div>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-preview" style="background: linear-gradient(135deg, #F26419, #1E3D59);">
+                        <span style="color: white; font-size: 2rem;">▶️</span>
+                    </div>
+                    <div class="template-info">
+                        <h4>YouTube Thumbnail</h4>
+                        <p>Eye-catching thumbnail template for video content</p>
+                        <div class="size-info">1280 x 720 pixels</div>
+                        <button onclick="downloadYouTubeThumbnail()" class="download-btn">Download PNG</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Usage Guidelines -->
+        <div class="section">
+            <h2>📋 Usage Guidelines</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                <div style="background: #f8f9fa; padding: 25px; border-radius: 15px; border-left: 5px solid #F26419;">
+                    <h4 style="color: #1E3D59; margin-bottom: 15px;">✅ DO's</h4>
+                    <ul style="color: #333; line-height: 1.8;">
+                        <li>Use official brand colors consistently</li>
+                        <li>Maintain logo proportions and clarity</li>
+                        <li>Keep messaging positive and inspiring</li>
+                        <li>Use high-quality images and graphics</li>
+                        <li>Include relevant hashtags: #AscendAfrica #SportsExcellence</li>
+                    </ul>
+                </div>
+                <div style="background: #f8f9fa; padding: 25px; border-radius: 15px; border-left: 5px solid #1E3D59;">
+                    <h4 style="color: #F26419; margin-bottom: 15px;">❌ DON'Ts</h4>
+                    <ul style="color: #333; line-height: 1.8;">
+                        <li>Don't alter logo colors or proportions</li>
+                        <li>Don't use low-resolution or pixelated images</li>
+                        <li>Don't post controversial or off-brand content</li>
+                        <li>Don't use unofficial fonts or color variations</li>
+                        <li>Don't overcrowd posts with too much text</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <h3>Ready to Transform Your Social Media Presence?</h3>
+            <p style="margin-bottom: 30px;">Download all assets and start building your brand consistency across all platforms.</p>
+            
+            <a href="#" onclick="downloadAllSocialAssets()" class="quick-download-all">
+                📦 DOWNLOAD ALL SOCIAL MEDIA ASSETS
+            </a>
+            
+            <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.2);">
+                <p style="opacity: 0.8;">ASCEND AFRICA - Sports Excellence Foundation</p>
+                <p style="font-size: 0.9rem; opacity: 0.7;">"Rising Through Sports, Transforming Lives"</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Asset download functions
+        const assets = {
+            facebookProfile: {
+                svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180"><rect width="180" height="180" fill="#1E3D59" rx="90"/><g transform="translate(90, 90)"><rect x="-35" y="-15" width="14" height="8" fill="#41B3A3" rx="1"/><rect x="-17" y="-20" width="14" height="12" fill="#41B3A3" rx="1"/><rect x="1" y="-25" width="14" height="16" fill="#ffffff" rx="1"/><rect x="19" y="-30" width="14" height="20" fill="#ffffff" rx="1"/><rect x="37" y="-35" width="14" height="24" fill="#F26419" rx="1"/><text x="0" y="25" font-family="Arial" font-size="18" font-weight="900" fill="#ffffff" text-anchor="middle">ASCEND</text><text x="0" y="40" font-family="Arial" font-size="12" font-weight="300" fill="#E8C547" text-anchor="middle">AFRICA</text></g></svg>`,
+                width: 180, height: 180, filename: 'ASCEND-AFRICA-Facebook-Profile'
+            },
+            facebookCover: {
+                svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 312"><defs><linearGradient id="fbCoverGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#1E3D59"/><stop offset="50%" style="stop-color:#41B3A3"/><stop offset="100%" style="stop-color:#F26419"/></linearGradient></defs><rect width="820" height="312" fill="url(#fbCoverGrad)"/><g transform="translate(410, 156)"><rect x="-120" y="-40" width="24" height="15" fill="#ffffff" rx="2" opacity="0.9"/><rect x="-90" y="-50" width="24" height="25" fill="#ffffff" rx="2" opacity="0.9"/><rect x="-60" y="-60" width="24" height="35" fill="#ffffff" rx="2"/><rect x="-30" y="-70" width="24" height="45" fill="#ffffff" rx="2"/><rect x="0" y="-80" width="24" height="55" fill="#ffffff" rx="2"/><rect x="30" y="-70" width="24" height="45" fill="#ffffff" rx="2"/><rect x="60" y="-60" width="24" height="35" fill="#ffffff" rx="2" opacity="0.9"/><rect x="90" y="-50" width="24" height="25" fill="#ffffff" rx="2" opacity="0.9"/><rect x="120" y="-40" width="24" height="15" fill="#ffffff" rx="2" opacity="0.8"/><text x="0" y="40" font-family="Arial" font-size="48" font-weight="900" fill="#ffffff" text-anchor="middle">ASCEND AFRICA</text><text x="0" y="70" font-family="Arial" font-size="20" font-weight="300" fill="#ffffff" text-anchor="middle" opacity="0.9">Rising Through Sports, Transforming Lives</text><text x="0" y="95" font-family="Arial" font-size="16" font-weight="400" fill="#ffffff" text-anchor="middle" opacity="0.8">Sports Excellence Foundation</text></g></svg>`,
+                width: 820, height: 312, filename: 'ASCEND-AFRICA-Facebook-Cover'
+            }
+            // Add more assets as needed
+        };
+
+        function downloadAsset(assetKey, format = 'png') {
+            const asset = assets[assetKey];
+            if (!asset) return;
+
+            if (format === 'svg') {
+                const blob = new Blob([asset.svg], { type: 'image/svg+xml' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = asset.filename + '.svg';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                return;
+            }
+
+            // PNG conversion
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = asset.width;
+            canvas.height = asset.height;
+
+            const img = new Image();
+            const svgBlob = new Blob([asset.svg], { type: 'image/svg+xml' });
+            const url = URL.createObjectURL(svgBlob);
+
+            img.onload = function() {
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                canvas.toBlob(function(blob) {
+                    const pngUrl = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = pngUrl;
+                    a.download = asset.filename + '.png';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(pngUrl);
+                    URL.revokeObjectURL(url);
+                }, 'image/png');
+            };
+            img.src = url;
+        }
+
+        // Individual download functions
+        function downloadFacebookProfile() { downloadAsset('facebookProfile'); }
+        function downloadFacebookProfileSVG() { downloadAsset('facebookProfile', 'svg'); }
+        function downloadFacebookCover() { downloadAsset('facebookCover'); }
+        function downloadFacebookCoverSVG() { downloadAsset('facebookCover', 'svg'); }
+
+        // Placeholder functions for other assets
+        function downloadInstagramProfile() { alert('Instagram Profile PNG download would start here'); }
+        function downloadInstagramProfileSVG() { alert('Instagram Profile SVG download would start here'); }
+        function downloadInstagramHighlights() { alert('Instagram Highlights download would start here'); }
+        function downloadLinkedInProfile() { alert('LinkedIn Profile PNG download would start here'); }
+        function downloadLinkedInProfileSVG() { alert('LinkedIn Profile SVG download would start here'); }
+        function downloadYouTubeProfile() { alert('YouTube Profile PNG download would start here'); }
+        function downloadYouTubeProfileSVG() { alert('YouTube Profile SVG download would start here'); }
+        function downloadTwitterProfile() { alert('Twitter Profile PNG download would start here'); }
+        function downloadTwitterProfileSVG() { alert('Twitter Profile SVG download would start here'); }
+        function downloadTikTokProfile() { alert('TikTok Profile PNG download would start here'); }
+        function downloadWhatsAppProfile() { alert('WhatsApp Profile PNG download would start here'); }
+        function downloadSnapchatProfile() { alert('Snapchat Profile PNG download would start here'); }
+        function downloadPinterestProfile() { alert('Pinterest Profile PNG download would start here'); }
+        function downloadMotivationalQuote() { alert('Motivational Quote template download would start here'); }
+        function downloadAchievementPost() { alert('Achievement Post template download would start here'); }
+        function downloadInstagramStory() { alert('Instagram Story template download would start here'); }
+        function downloadYouTubeThumbnail() { alert('YouTube Thumbnail template download would start here'); }
+
+        function downloadAllSocialAssets() {
+            alert('This would trigger a zip download of all social media assets');
+        }
+    </script>
+</body>
+</html>
