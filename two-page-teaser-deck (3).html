@@ -1003,8 +1003,8 @@
                 <div class="video-section">
                     <h3 class="video-title">Watch Our Transformative Vision</h3>
                     <div class="video-container">
-                        <div class="video-placeholder" id="videoPlaceholder" onclick="loadVideo()">
-                            <div class="play-button">
+                        <div class="video-placeholder" id="videoPlaceholder">
+                            <div class="play-button" id="playButton">
                                 <div class="play-icon"></div>
                             </div>
                             <div class="video-overlay-text">Click to experience our vision</div>
@@ -1142,22 +1142,75 @@
     </div>
 
     <script>
-        // Video functionality using your specific YouTube video
+        // Your YouTube video ID: ofHXcZMGKdE
+        const VIDEO_ID = 'ofHXcZMGKdE';
+        
+        // Video functionality
         function loadVideo() {
+            console.log('Loading video...');
             const videoPlaceholder = document.getElementById('videoPlaceholder');
             const videoEmbed = document.getElementById('videoEmbed');
             
-            // Your YouTube video ID from the embed code: ofHXcZMGKdE
-            const videoId = 'ofHXcZMGKdE';
-            const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&si=oo0-NQ-NmeQlShg-`;
-            
-            // Set the iframe source and show the video
-            videoEmbed.src = embedUrl;
-            videoPlaceholder.style.display = 'none';
-            videoEmbed.style.display = 'block';
+            if (videoPlaceholder && videoEmbed) {
+                // Create the embed URL with autoplay
+                const embedUrl = `https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&rel=0&si=oo0-NQ-NmeQlShg-`;
+                
+                console.log('Setting video URL:', embedUrl);
+                
+                // Set the iframe source and show the video
+                videoEmbed.src = embedUrl;
+                videoPlaceholder.style.display = 'none';
+                videoEmbed.style.display = 'block';
+            } else {
+                console.error('Video elements not found');
+            }
         }
 
-        // Optional: Add smooth scrolling for better user experience
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded');
+            
+            // Get video elements
+            const videoPlaceholder = document.getElementById('videoPlaceholder');
+            const playButton = document.getElementById('playButton');
+            
+            // Add click event listeners
+            if (videoPlaceholder) {
+                videoPlaceholder.addEventListener('click', loadVideo);
+                console.log('Video placeholder click listener added');
+            }
+            
+            if (playButton) {
+                playButton.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Prevent double-clicking
+                    loadVideo();
+                });
+                console.log('Play button click listener added');
+            }
+            
+            // Add keyboard accessibility
+            if (videoPlaceholder) {
+                videoPlaceholder.setAttribute('tabindex', '0');
+                videoPlaceholder.setAttribute('role', 'button');
+                videoPlaceholder.setAttribute('aria-label', 'Play ASCEND AFRICA video');
+                
+                videoPlaceholder.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        loadVideo();
+                    }
+                });
+                console.log('Keyboard accessibility added');
+            }
+        });
+
+        // Test function to verify script is loaded
+        function testVideo() {
+            console.log('Test function called');
+            loadVideo();
+        }
+
+        // Optional: Add smooth scrolling for internal links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1169,22 +1222,6 @@
                     });
                 }
             });
-        });
-
-        // Add keyboard accessibility for play button
-        document.getElementById('videoPlaceholder').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                loadVideo();
-            }
-        });
-
-        // Make play button focusable for accessibility
-        document.addEventListener('DOMContentLoaded', function() {
-            const videoPlaceholder = document.getElementById('videoPlaceholder');
-            videoPlaceholder.setAttribute('tabindex', '0');
-            videoPlaceholder.setAttribute('role', 'button');
-            videoPlaceholder.setAttribute('aria-label', 'Play ASCEND AFRICA video');
         });
     </script>
 </body>
