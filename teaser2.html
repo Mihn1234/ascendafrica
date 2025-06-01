@@ -68,7 +68,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 800"><circle cx="300" cy="200" r="100" fill="rgba(255,255,255,0.03)"/><circle cx="1100" cy="600" r="150" fill="rgba(255,255,255,0.02)"/><circle cx="700" cy="150" r="80" fill="rgba(255,255,255,0.04)"/><circle cx="200" cy="650" r="60" fill="rgba(255,255,255,0.03)"/></svg>');
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 800"><circle cx="300" cy="200" r="100" fill="rgba(255,255,255,0.03)"/><circle cx="1100" cy="600" r="150" fill="rgba(255,255,255,0.02)"/></svg>');
             pointer-events: none;
         }
         
@@ -232,6 +232,23 @@
             font-size: 1.1rem;
             opacity: 0.9;
             font-weight: 500;
+        }
+        
+        /* Hidden video iframe - shows when play is clicked */
+        .video-iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+            border-radius: 20px;
+            display: none;
+        }
+        
+        .video-iframe.show {
+            display: block;
+        }
+        
+        .video-placeholder.hidden {
+            display: none;
         }
         
         .youtube-link {
@@ -530,7 +547,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 400"><circle cx="200" cy="100" r="80" fill="rgba(255,255,255,0.03)"/><circle cx="1200" cy="300" r="120" fill="rgba(255,255,255,0.02)"/><circle cx="700" cy="50" r="60" fill="rgba(255,255,255,0.04)"/></svg>');
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 400"><circle cx="200" cy="100" r="80" fill="rgba(255,255,255,0.03)"/><circle cx="1200" cy="300" r="120" fill="rgba(255,255,255,0.02)"/></svg>');
             pointer-events: none;
         }
         
@@ -656,7 +673,7 @@
             .video-section { padding: 40px 30px; }
             .video-title { font-size: 1.8rem; margin-bottom: 25px; }
             .video-container { max-width: 100%; }
-            .video-placeholder { height: 300px; }
+            .video-placeholder, .video-iframe { height: 300px; }
             .play-button { width: 90px; height: 90px; }
             .play-icon { 
                 border-left: 28px solid white;
@@ -789,7 +806,7 @@
             
             .video-section { padding: 30px 20px; }
             .video-title { font-size: 1.5rem; }
-            .video-placeholder { height: 250px; }
+            .video-placeholder, .video-iframe { height: 250px; }
             .play-button { width: 75px; height: 75px; }
             .youtube-btn { padding: 10px 22px; font-size: 0.9rem; }
             
@@ -867,10 +884,9 @@
                 grid-template-columns: repeat(4, 1fr); 
                 gap: 15px; 
             }
-            .video-placeholder { height: 200px; }
+            .video-placeholder, .video-iframe { height: 200px; }
             .video-section { padding: 25px 20px; }
         }
-        
         
         /* Additional mobile performance optimizations */
         * {
@@ -993,16 +1009,30 @@
                 <div class="video-section">
                     <h3 class="video-title">Watch Our Transformative Vision</h3>
                     <div class="video-container">
-                        <div class="video-placeholder" onclick="loadVideo()">
+                        <!-- Video placeholder with play button -->
+                        <div class="video-placeholder" id="videoPlaceholder" onclick="playVideo()">
                             <div class="play-button">
                                 <div class="play-icon"></div>
                             </div>
                             <div class="video-overlay-text">Click to experience our vision</div>
                         </div>
+                        
+                        <!-- Hidden YouTube iframe - shows when play is clicked -->
+                        <iframe id="videoIframe" 
+                                class="video-iframe" 
+                                width="560" 
+                                height="315" 
+                                src="" 
+                                title="YouTube video player" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                referrerpolicy="strict-origin-when-cross-origin" 
+                                allowfullscreen>
+                        </iframe>
                     </div>
                     <div class="youtube-link">
-                        <a href="https://youtu.be/ofHXcZMGKdE?si=G4Etz1q254h3VBPg" target="_blank" class="youtube-btn">
-                            📺 Watch on YouTube
+                        <a href="https://youtu.be/CvlCXgg3w2o?si=o7cmReNclhfincM7" target="_blank" class="youtube-btn">
+                            Watch on YouTube
                         </a>
                     </div>
                 </div>
@@ -1013,115 +1043,104 @@
         <div class="page">
             <div class="page-indicator">Page 2 of 2</div>
             <div class="page-content">
-                <!-- Challenge & Solution -->
-                <div class="section">
-                    <div class="challenge-solution-section">
-                        <div class="challenge-card">
-                            <h3 class="card-title">THE CHALLENGE</h3>
-                            <ul class="card-list">
-                                <li>Extraordinary athletic talent remains underdeveloped</li>
-                                <li>Youth abandon sports for financial survival</li>
-                                <li>Fragmented development approaches fail</li>
-                                <li>Best talent leaves without local contribution</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="solution-card">
-                            <h3 class="card-title">THE SOLUTION</h3>
-                            <ul class="card-list">
-                                <li>Elite sports academies as development catalysts</li>
-                                <li>Integrated community transformation model</li>
-                                <li>Pathways from grassroots to global excellence</li>
-                                <li>Sustainable economic ecosystem creation</li>
-                            </ul>
-                        </div>
+                <div class="section challenge-solution-section">
+                    <div class="challenge-card">
+                        <h3 class="card-title">The Challenge</h3>
+                        <ul class="card-list">
+                            <li>Africa remains on the periphery of global economic participation</li>
+                            <li>Limited pathways for youth development and empowerment</li>
+                            <li>Untapped athletic potential across the continent</li>
+                            <li>Need for sustainable development solutions</li>
+                            <li>Gap between talent and opportunity</li>
+                        </ul>
+                    </div>
+                    <div class="solution-card">
+                        <h3 class="card-title">Our Solution</h3>
+                        <ul class="card-list">
+                            <li>Sports-led comprehensive development program</li>
+                            <li>Strategic partnerships across multiple sectors</li>
+                            <li>Talent identification and nurturing systems</li>
+                            <li>Economic empowerment through athletic excellence</li>
+                            <li>Sustainable impact across communities</li>
+                        </ul>
                     </div>
                 </div>
 
-                <!-- Integrated Model -->
-                <div class="section">
-                    <div class="model-section">
-                        <h2 class="model-title">Integrated Community Development Model</h2>
-                        <div class="model-diagram">
-                            <div class="central-hub">
-                                Sports Academy<br>
-                                <strong>Central Hub</strong>
-                            </div>
+                <div class="section model-section">
+                    <h2 class="model-title">Our Transformative Model</h2>
+                    <div class="model-diagram">
+                        <div class="central-hub">
+                            ASCEND AFRICA<br>
+                            Sports Excellence Foundation
                         </div>
-                        <div class="surrounding-elements">
-                            <div class="element-card">Education Center</div>
-                            <div class="element-card">Healthcare Facility</div>
-                            <div class="element-card">Family Housing</div>
-                            <div class="element-card">Sustainable Agriculture</div>
-                            <div class="element-card">Community Commerce</div>
-                            <div class="element-card">Environmental Programs</div>
-                        </div>
+                    </div>
+                    <div class="surrounding-elements">
+                        <div class="element-card">Talent Identification</div>
+                        <div class="element-card">Skills Development</div>
+                        <div class="element-card">Community Impact</div>
+                        <div class="element-card">Economic Growth</div>
+                        <div class="element-card">Global Partnerships</div>
+                        <div class="element-card">Sustainable Change</div>
                     </div>
                 </div>
 
-                <!-- Six Pillars -->
                 <div class="section pillars-section">
-                    <h2 class="section-title">Six Pillars of Impact</h2>
+                    <h2 class="section-title">Six Impact Pillars</h2>
                     <div class="pillars-grid">
                         <div class="pillar-card">
                             <span class="pillar-icon">🏆</span>
-                            <h3 class="pillar-title">Sports Excellence</h3>
-                            <p class="pillar-description">World-class talent development systems</p>
-                        </div>
-                        <div class="pillar-card">
-                            <span class="pillar-icon">💼</span>
-                            <h3 class="pillar-title">Economic Opportunities</h3>
-                            <p class="pillar-description">Jobs, enterprises, and sustainable livelihoods</p>
+                            <h3 class="pillar-title">Athletic Excellence</h3>
+                            <p class="pillar-description">Developing world-class athletes through comprehensive training programs and state-of-the-art facilities.</p>
                         </div>
                         <div class="pillar-card">
                             <span class="pillar-icon">🎓</span>
-                            <h3 class="pillar-title">Educational Achievement</h3>
-                            <p class="pillar-description">Academic and vocational pathways</p>
+                            <h3 class="pillar-title">Education</h3>
+                            <p class="pillar-description">Providing quality education alongside athletic development to ensure holistic growth.</p>
                         </div>
                         <div class="pillar-card">
                             <span class="pillar-icon">🏥</span>
-                            <h3 class="pillar-title">Health & Wellbeing</h3>
-                            <p class="pillar-description">Preventive care and sports medicine</p>
+                            <h3 class="pillar-title">Health & Wellness</h3>
+                            <p class="pillar-description">Promoting physical and mental health through sports and comprehensive healthcare programs.</p>
                         </div>
                         <div class="pillar-card">
-                            <span class="pillar-icon">🌱</span>
-                            <h3 class="pillar-title">Environmental Sustainability</h3>
-                            <p class="pillar-description">Renewable energy and regenerative agriculture</p>
+                            <span class="pillar-icon">💼</span>
+                            <h3 class="pillar-title">Economic Empowerment</h3>
+                            <p class="pillar-description">Creating sustainable economic opportunities through sports-related industries and entrepreneurship.</p>
                         </div>
                         <div class="pillar-card">
-                            <span class="pillar-icon">🎭</span>
-                            <h3 class="pillar-title">Cultural Pride</h3>
-                            <p class="pillar-description">Celebrating African excellence on the global stage</p>
+                            <span class="pillar-icon">🤝</span>
+                            <h3 class="pillar-title">Community Development</h3>
+                            <p class="pillar-description">Building stronger communities through inclusive sports programs and social cohesion initiatives.</p>
+                        </div>
+                        <div class="pillar-card">
+                            <span class="pillar-icon">🌍</span>
+                            <h3 class="pillar-title">Global Impact</h3>
+                            <p class="pillar-description">Connecting Africa to global opportunities while showcasing the continent's potential.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- UN SDG Alignment -->
-                <div class="section">
-                    <div class="sdg-section">
-                        <h2 class="sdg-title">UN SUSTAINABLE DEVELOPMENT GOALS ALIGNMENT</h2>
-                        <div class="sdg-grid">
-                            <div class="sdg-item">No Poverty</div>
-                            <div class="sdg-item">Zero Hunger</div>
-                            <div class="sdg-item">Good Health</div>
-                            <div class="sdg-item">Quality Education</div>
-                            <div class="sdg-item">Gender Equality</div>
-                            <div class="sdg-item">Clean Water</div>
-                            <div class="sdg-item">Clean Energy</div>
-                            <div class="sdg-item">Decent Work</div>
-                        </div>
+                <div class="section sdg-section">
+                    <h2 class="sdg-title">Supporting UN Sustainable Development Goals</h2>
+                    <div class="sdg-grid">
+                        <div class="sdg-item">SDG 3: Good Health</div>
+                        <div class="sdg-item">SDG 4: Quality Education</div>
+                        <div class="sdg-item">SDG 5: Gender Equality</div>
+                        <div class="sdg-item">SDG 8: Economic Growth</div>
+                        <div class="sdg-item">SDG 10: Reduced Inequalities</div>
+                        <div class="sdg-item">SDG 11: Sustainable Communities</div>
+                        <div class="sdg-item">SDG 16: Peace & Justice</div>
+                        <div class="sdg-item">SDG 17: Global Partnerships</div>
                     </div>
                 </div>
 
-                <!-- Call to Action -->
-                <div class="cta-section">
-                    <h2 class="cta-title">Transforming Africa's Future</h2>
+                <div class="section cta-section">
+                    <h2 class="cta-title">Join the Transformation</h2>
                     <p class="cta-description">
-                        ASCEND will transform Africa's relationship with the world, reimagining development through the universal language of sports.
+                        Be part of a movement that will redefine Africa's place in the world. Together, we can unlock the continent's unlimited potential through the power of sports.
                     </p>
                     <div class="cta-buttons">
-                        <a href="#" class="cta-btn primary">Join the Movement</a>
-                        <a href="#" class="cta-btn secondary">Partner With Us</a>
+                        <a href="#" class="cta-btn primary">Partner With Us</a>
                         <a href="#" class="cta-btn secondary">Learn More</a>
                     </div>
                 </div>
@@ -1130,209 +1149,23 @@
     </div>
 
     <script>
-        function loadVideo() {
-            const videoContainer = document.querySelector('.video-placeholder');
-            // Better mobile video handling
-            const isMobile = window.innerWidth <= 768;
-            const videoHeight = isMobile ? '300' : '400';
+        function playVideo() {
+            const placeholder = document.getElementById('videoPlaceholder');
+            const iframe = document.getElementById('videoIframe');
             
-            // Try to load the embedded video
-            try {
-                videoContainer.innerHTML = `
-                    <iframe 
-                        width="100%" 
-                        height="${videoHeight}" 
-                        src="https://www.youtube.com/embed/ofHXcZMGKdE?si=G4Etz1q254h3VBPg&autoplay=1&rel=0&modestbranding=1&playsinline=1" 
-                        title="ASCEND AFRICA Video" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                        referrerpolicy="strict-origin-when-cross-origin"
-                        allowfullscreen
-                        style="border-radius: 0;">
-                    </iframe>
-                `;
-                
-                // Add fallback after 3 seconds if video doesn't load
-                setTimeout(() => {
-                    const iframe = videoContainer.querySelector('iframe');
-                    if (iframe && !iframe.contentWindow) {
-                        showVideoFallback();
-                    }
-                }, 3000);
-                
-            } catch (error) {
-                console.log('Video loading error:', error);
-                showVideoFallback();
-            }
-        }
-
-        function showVideoFallback() {
-            const videoContainer = document.querySelector('.video-placeholder');
-            const isMobile = window.innerWidth <= 768;
-            const containerHeight = isMobile ? '300px' : '400px';
+            // Hide placeholder
+            placeholder.classList.add('hidden');
             
-            videoContainer.innerHTML = `
-                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: ${containerHeight}; background: linear-gradient(135deg, #1E3D59, #000); color: white; padding: 40px; text-align: center;">
-                    <div style="font-size: 4rem; margin-bottom: 20px;">🎬</div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 20px;">Video Loading...</h3>
-                    <p style="margin-bottom: 30px; opacity: 0.9; max-width: 400px; line-height: 1.6;">If the video doesn't load automatically, click below to watch on YouTube</p>
-                    <a href="https://youtu.be/ofHXcZMGKdE?si=G4Etz1q254h3VBPg" target="_blank" 
-                       style="background: #FF0000; color: white; padding: 15px 30px; border-radius: 25px; text-decoration: none; font-weight: 600; display: inline-block; transition: all 0.3s ease;">
-                        📺 Watch on YouTube
-                    </a>
-                </div>
-            `;
+            // Set video source with autoplay and show iframe
+            iframe.src = 'https://www.youtube.com/embed/CvlCXgg3w2o?si=L916__UKns-OykJM&autoplay=1';
+            iframe.classList.add('show');
+            
+            console.log('Video playing on page!');
         }
-
-        // Enhanced scroll animations with performance optimization
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    requestAnimationFrame(() => {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                        
-                        // Special animation for stat cards with stagger effect
-                        if (entry.target.classList.contains('stat-card')) {
-                            const delay = Math.random() * 0.3;
-                            entry.target.style.transitionDelay = `${delay}s`;
-                        }
-                    });
-                }
-            });
-        }, observerOptions);
-
-        // Initialize animations and mobile optimizations
+        
         document.addEventListener('DOMContentLoaded', function() {
-            // Only add animations on non-touch devices or larger screens for performance
-            const shouldAnimate = !('ontouchstart' in window) || window.innerWidth > 768;
-            
-            if (shouldAnimate) {
-                document.querySelectorAll('.section, .pillar-card, .stat-card, .element-card, .sdg-item').forEach((el, index) => {
-                    el.style.opacity = '0';
-                    el.style.transform = 'translateY(30px)';
-                    el.style.transition = `opacity 0.8s ease ${index * 0.05}s, transform 0.8s ease ${index * 0.05}s`;
-                    observer.observe(el);
-                });
-            }
-            
-            // Mobile-specific optimizations
-            if (window.innerWidth <= 768) {
-                // Optimize video container for mobile
-                const videoPlaceholder = document.querySelector('.video-placeholder');
-                if (videoPlaceholder) {
-                    videoPlaceholder.style.height = '300px';
-                }
-                
-                // Reduce animation complexity on mobile
-                document.documentElement.style.setProperty('--animation-duration', '0.4s');
-            }
-            
-            // Add touch feedback for interactive elements
-            const interactiveElements = document.querySelectorAll('.cta-btn, .youtube-btn, .play-button');
-            interactiveElements.forEach(el => {
-                el.addEventListener('touchstart', function(e) {
-                    this.style.transform = 'scale(0.95)';
-                    e.preventDefault();
-                }, { passive: false });
-                
-                el.addEventListener('touchend', function() {
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 150);
-                });
-            });
-            
-            // Add page navigation hints for mobile
-            const page1 = document.querySelector('.page:first-child');
-            const scrollHint = document.createElement('div');
-            scrollHint.innerHTML = '▼ Scroll for More';
-            scrollHint.style.cssText = `
-                position: absolute;
-                bottom: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                color: white;
-                font-size: ${window.innerWidth <= 480 ? '0.9rem' : '1rem'};
-                opacity: 0.8;
-                animation: bounce 2s infinite;
-                cursor: pointer;
-                z-index: 10;
-                padding: 10px 20px;
-                background: rgba(0,0,0,0.3);
-                border-radius: 20px;
-                backdrop-filter: blur(5px);
-            `;
-            scrollHint.onclick = scrollToPage2;
-            page1.appendChild(scrollHint);
-
-            // Add bounce animation with reduced motion for mobile
-            const bounceStyle = document.createElement('style');
-            const bounceIntensity = window.innerWidth <= 768 ? '5px' : '10px';
-            bounceStyle.textContent = `
-                @keyframes bounce {
-                    0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-                    40% { transform: translateX(-50%) translateY(-${bounceIntensity}); }
-                    60% { transform: translateX(-50%) translateY(-${parseInt(bounceIntensity)/2}px); }
-                }
-            `;
-            document.head.appendChild(bounceStyle);
+            console.log('ASCEND AFRICA - Two Page Teaser Loaded Successfully');
         });
-
-        // Smooth scrolling between pages with mobile optimization
-        function scrollToPage2() {
-            const page2 = document.querySelector('.page:nth-child(2)');
-            const isMobile = window.innerWidth <= 768;
-            
-            page2.scrollIntoView({ 
-                behavior: isMobile ? 'auto' : 'smooth',
-                block: 'start'
-            });
-        }
-
-        // Handle orientation changes
-        window.addEventListener('orientationchange', function() {
-            setTimeout(() => {
-                // Adjust video height on orientation change
-                const videoContainer = document.querySelector('.video-placeholder');
-                if (videoContainer && window.innerWidth <= 768) {
-                    const isLandscape = window.orientation === 90 || window.orientation === -90;
-                    videoContainer.style.height = isLandscape ? '200px' : '300px';
-                }
-                
-                // Recalculate layouts
-                window.dispatchEvent(new Event('resize'));
-            }, 100);
-        });
-
-        // Optimize scrolling performance on mobile
-        let ticking = false;
-        function updateOnScroll() {
-            if (!ticking) {
-                requestAnimationFrame(() => {
-                    // Throttled scroll operations here if needed
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        }
-
-        if (window.innerWidth <= 768) {
-            window.addEventListener('scroll', updateOnScroll);
-        }
-
-        // Reduce motion for users who prefer it
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            document.querySelectorAll('*').forEach(el => {
-                el.style.animation = 'none';
-                el.style.transition = 'none';
-            });
-        }
     </script>
 </body>
 </html>
