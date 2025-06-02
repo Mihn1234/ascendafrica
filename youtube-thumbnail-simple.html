@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCEND AFRICA YouTube Thumbnail Download</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 1320px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #1E3D59;
+            margin-bottom: 20px;
+        }
+        
+        .instructions {
+            background: #e8f5e8;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: left;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .instructions h3 {
+            color: #2d5a2d;
+            margin-bottom: 10px;
+        }
+        
+        .instructions ol {
+            color: #333;
+            line-height: 1.8;
+        }
+        
+        .download-btn {
+            background: #F26419;
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            border-radius: 30px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 20px 0;
+            display: inline-block;
+            text-decoration: none;
+        }
+        
+        .download-btn:hover {
+            background: #e55410;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(242, 100, 25, 0.3);
+        }
+        
+        canvas {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .preview-container {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎬 ASCEND AFRICA YouTube Thumbnail</h1>
+        
+        <div class="instructions">
+            <h3>📋 Quick Download Instructions:</h3>
+            <ol>
+                <li>Click the "Download Thumbnail" button below</li>
+                <li>Save the PNG file to your computer</li>
+                <li>Go to YouTube Studio</li>
+                <li>Upload your video or edit existing video</li>
+                <li>Click "Upload thumbnail" and select this file</li>
+                <li>Save and publish!</li>
+            </ol>
+        </div>
+        
+        <div class="preview-container">
+            <h3>Preview:</h3>
+            <canvas id="thumbnail" width="1280" height="720"></canvas>
+        </div>
+        
+        <button onclick="downloadThumbnail()" class="download-btn">
+            📥 Download Thumbnail for YouTube
+        </button>
+        
+        <p style="color: #666; font-size: 14px;">
+            File: ASCEND-AFRICA-YouTube-Thumbnail.png (1280x720 pixels)
+        </p>
+    </div>
+
+    <script>
+        // Get canvas and context
+        const canvas = document.getElementById('thumbnail');
+        const ctx = canvas.getContext('2d');
+        
+        // Create the thumbnail
+        function createThumbnail() {
+            // Background gradient
+            const bgGradient = ctx.createLinearGradient(0, 0, 1280, 720);
+            bgGradient.addColorStop(0, '#1E3D59');
+            bgGradient.addColorStop(0.5, '#2a5479');
+            bgGradient.addColorStop(1, '#F26419');
+            ctx.fillStyle = bgGradient;
+            ctx.fillRect(0, 0, 1280, 720);
+            
+            // Add texture overlay
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.02)';
+            for (let i = 0; i < 30; i++) {
+                ctx.beginPath();
+                ctx.arc(
+                    Math.random() * 1280, 
+                    Math.random() * 720, 
+                    Math.random() * 150 + 50, 
+                    0, 
+                    Math.PI * 2
+                );
+                ctx.fill();
+            }
+            
+            // Right side image area with overlay
+            const imageGradient = ctx.createLinearGradient(640, 0, 1280, 720);
+            imageGradient.addColorStop(0, 'rgba(0, 0, 0, 0.4)');
+            imageGradient.addColorStop(1, 'rgba(242, 100, 25, 0.6)');
+            ctx.fillStyle = imageGradient;
+            ctx.fillRect(640, 0, 640, 720);
+            
+            // Add image placeholder elements
+            ctx.fillStyle = 'rgba(65, 179, 163, 0.3)';
+            ctx.fillRect(700, 100, 300, 400);
+            ctx.fillRect(1050, 150, 200, 300);
+            
+            // Placeholder text for image area
+            ctx.save();
+            ctx.globalAlpha = 0.6;
+            ctx.fillStyle = '#FFFFFF';
+            ctx.font = 'italic 28px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Youth Training', 900, 340);
+            ctx.fillText('& Modern Facilities', 900, 380);
+            ctx.restore();
+            
+            // Main text background block
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+            ctx.fillRect(50, 180, 580, 360);
+            
+            // Orange accent bar
+            ctx.fillStyle = '#F26419';
+            ctx.fillRect(50, 180, 10, 360);
+            
+            // Main headline text
+            ctx.save();
+            
+            // "SPORTS"
+            ctx.font = 'bold 120px Arial';
+            ctx.fillStyle = '#FFFFFF';
+            ctx.textAlign = 'left';
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+            ctx.shadowBlur = 10;
+            ctx.shadowOffsetX = 3;
+            ctx.shadowOffsetY = 3;
+            ctx.fillText('SPORTS', 90, 310);
+            
+            // "TRANSFORMING"
+            ctx.font = 'bold 85px Arial';
+            ctx.fillStyle = '#F26419';
+            ctx.fillText('TRANSFORMING', 90, 410);
+            
+            // "AFRICA"
+            ctx.font = 'bold 120px Arial';
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillText('AFRICA', 90, 520);
+            
+            ctx.restore();
+            
+            // ASCEND AFRICA Logo/Brand
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+            ctx.fillRect(50, 50, 320, 110);
+            
+            // Draw logo blocks
+            const logoX = 70;
+            const logoY = 85;
+            
+            ctx.fillStyle = '#41B3A3';
+            ctx.fillRect(logoX, logoY + 20, 18, 12);
+            ctx.fillRect(logoX + 23, logoY + 15, 18, 17);
+            
+            ctx.fillStyle = '#1E3D59';
+            ctx.fillRect(logoX + 46, logoY + 10, 18, 22);
+            ctx.fillRect(logoX + 69, logoY + 5, 18, 27);
+            
+            ctx.fillStyle = '#F26419';
+            ctx.fillRect(logoX + 92, logoY, 18, 32);
+            
+            // Brand text
+            ctx.font = 'bold 40px Arial';
+            ctx.fillStyle = '#1E3D59';
+            ctx.textAlign = 'left';
+            ctx.fillText('ASCEND', logoX + 125, logoY + 15);
+            
+            ctx.font = '28px Arial';
+            ctx.fillText('AFRICA', logoX + 125, logoY + 45);
+            
+            // Impact stats bar
+            ctx.fillStyle = 'rgba(30, 61, 89, 0.95)';
+            ctx.fillRect(0, 570, 1280, 150);
+            
+            // Stats dividers
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(426, 590);
+            ctx.lineTo(426, 700);
+            ctx.moveTo(853, 590);
+            ctx.lineTo(853, 700);
+            ctx.stroke();
+            
+            // Stats text
+            ctx.textAlign = 'center';
+            
+            // First stat
+            ctx.font = 'bold 56px Arial';
+            ctx.fillStyle = '#F26419';
+            ctx.fillText('10,000+', 213, 640);
+            ctx.font = '24px Arial';
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillText('Youth Transformed', 213, 675);
+            
+            // Second stat
+            ctx.font = 'bold 56px Arial';
+            ctx.fillStyle = '#F26419';
+            ctx.fillText('13', 640, 640);
+            ctx.font = '24px Arial';
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillText('UN SDGs Advanced', 640, 675);
+            
+            // Third stat
+            ctx.font = 'bold 56px Arial';
+            ctx.fillStyle = '#F26419';
+            ctx.fillText('50,000+', 1066, 640);
+            ctx.font = '24px Arial';
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillText('Lives Impacted', 1066, 675);
+            
+            // Play button (YouTube style)
+            ctx.save();
+            ctx.globalAlpha = 0.9;
+            ctx.fillStyle = '#FFFFFF';
+            ctx.beginPath();
+            ctx.moveTo(980, 340);
+            ctx.lineTo(980, 420);
+            ctx.lineTo(1040, 380);
+            ctx.closePath();
+            ctx.fill();
+            
+            // Play button shadow
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+            ctx.shadowBlur = 20;
+            ctx.shadowOffsetX = 5;
+            ctx.shadowOffsetY = 5;
+            ctx.fill();
+            ctx.restore();
+            
+            // Corner accent
+            ctx.strokeStyle = '#F26419';
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(1120, 50);
+            ctx.lineTo(1230, 50);
+            ctx.lineTo(1230, 160);
+            ctx.stroke();
+            
+            // Subtle pattern overlay
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+            ctx.lineWidth = 1;
+            for (let i = 1; i < 6; i++) {
+                ctx.beginPath();
+                ctx.moveTo(640 + i * 60, 0);
+                ctx.lineTo(640 + i * 60, 570);
+                ctx.stroke();
+            }
+        }
+        
+        // Download function
+        function downloadThumbnail() {
+            // Create a temporary link element
+            const link = document.createElement('a');
+            link.download = 'ASCEND-AFRICA-YouTube-Thumbnail.png';
+            
+            // Convert canvas to blob and create download
+            canvas.toBlob(function(blob) {
+                const url = URL.createObjectURL(blob);
+                link.href = url;
+                link.click();
+                
+                // Clean up
+                setTimeout(() => URL.revokeObjectURL(url), 100);
+            }, 'image/png', 1.0);
+        }
+        
+        // Create thumbnail on load
+        window.onload = function() {
+            createThumbnail();
+        };
+    </script>
+</body>
+</html>
