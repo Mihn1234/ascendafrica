@@ -1,0 +1,1878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Channel Manager - ASCEND AFRICA</title>
+    <style>
+        /* Core Variables */
+        :root {
+            --primary-blue: #1E3D59;
+            --vibrant-orange: #F26419;
+            --forest-green: #41B3A3;
+            --warm-sand: #E8C547;
+            --slate-gray: #5D5C61;
+            --light-gray: #f8f9fa;
+            --white: #ffffff;
+            --black: #000000;
+            --youtube-red: #FF0000;
+            --youtube-dark: #282828;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #f9f9f9;
+            color: #0f0f0f;
+            overflow-x: hidden;
+        }
+        
+        /* Header */
+        .header {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            height: 60px;
+        }
+        
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 20px;
+            color: var(--primary-blue);
+        }
+        
+        .youtube-badge {
+            background: var(--youtube-red);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .brand-switcher {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 16px;
+            background: var(--light-gray);
+            border-radius: 20px;
+        }
+        
+        .brand-switcher select {
+            border: none;
+            background: none;
+            font-weight: 600;
+            color: var(--primary-blue);
+            cursor: pointer;
+        }
+        
+        .api-status {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 12px;
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+        
+        .api-status.disconnected {
+            background: #ffebee;
+            color: #c62828;
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+        
+        /* Layout */
+        .main-container {
+            display: flex;
+            margin-top: 60px;
+            height: calc(100vh - 60px);
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background: white;
+            border-right: 1px solid #e0e0e0;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+        
+        .sidebar-section {
+            padding: 20px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .sidebar-section-title {
+            padding: 0 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #606060;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        
+        .sidebar-item:hover {
+            background: var(--light-gray);
+        }
+        
+        .sidebar-item.active {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .sidebar-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #1976d2;
+        }
+        
+        .sidebar-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        
+        /* Content Area */
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            background: var(--light-gray);
+        }
+        
+        .content-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .page-header {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .page-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 8px;
+        }
+        
+        .page-subtitle {
+            color: #606060;
+        }
+        
+        /* Sections */
+        .section {
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #030303;
+        }
+        
+        /* Channel Preview */
+        .channel-preview {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 24px;
+        }
+        
+        .channel-banner {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--forest-green) 50%, var(--vibrant-orange) 100%);
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .banner-content {
+            z-index: 1;
+        }
+        
+        .banner-content h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .banner-content p {
+            font-size: 20px;
+            opacity: 0.9;
+        }
+        
+        .banner-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .channel-banner:hover .banner-overlay {
+            display: flex;
+        }
+        
+        .channel-info {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            gap: 20px;
+        }
+        
+        .channel-avatar {
+            width: 88px;
+            height: 88px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 24px;
+            position: relative;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        
+        .avatar-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+        
+        .channel-avatar:hover .avatar-overlay {
+            display: flex;
+        }
+        
+        .channel-details {
+            flex: 1;
+        }
+        
+        .channel-name {
+            font-size: 24px;
+            font-weight: 500;
+            color: #030303;
+            margin-bottom: 4px;
+        }
+        
+        .channel-handle {
+            color: #606060;
+            margin-bottom: 4px;
+        }
+        
+        .channel-stats {
+            display: flex;
+            gap: 20px;
+            color: #606060;
+            font-size: 14px;
+        }
+        
+        .subscribe-btn {
+            background: var(--youtube-red);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .subscribe-btn:hover {
+            background: #cc0000;
+            transform: translateY(-1px);
+        }
+        
+        /* Channel Tabs */
+        .channel-tabs {
+            display: flex;
+            gap: 32px;
+            padding: 0 20px;
+            border-bottom: 1px solid #e0e0e0;
+            background: white;
+        }
+        
+        .channel-tab {
+            padding: 16px 0;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            font-weight: 500;
+            color: #606060;
+            transition: all 0.2s;
+        }
+        
+        .channel-tab.active {
+            color: #030303;
+            border-bottom-color: #030303;
+        }
+        
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 4px;
+        }
+        
+        .stat-label {
+            color: #606060;
+            font-size: 14px;
+        }
+        
+        .stat-change {
+            font-size: 12px;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .stat-up {
+            color: #2e7d32;
+        }
+        
+        .stat-down {
+            color: #c62828;
+        }
+        
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .action-card {
+            background: white;
+            border: 2px dashed #e0e0e0;
+            border-radius: 12px;
+            padding: 32px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .action-card:hover {
+            border-color: var(--primary-blue);
+            border-style: solid;
+            transform: translateY(-2px);
+        }
+        
+        .action-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            opacity: 0.6;
+        }
+        
+        .action-title {
+            font-weight: 600;
+            color: #030303;
+            margin-bottom: 4px;
+        }
+        
+        .action-desc {
+            font-size: 12px;
+            color: #606060;
+        }
+        
+        /* Video Grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .video-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .video-thumbnail {
+            width: 100%;
+            height: 168px;
+            background: #000;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .video-duration {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .video-status {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .status-draft {
+            background: #e0e0e0;
+            color: #606060;
+        }
+        
+        .status-ready {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+        
+        .status-published {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .status-scheduled {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .video-info {
+            padding: 16px;
+        }
+        
+        .video-title {
+            font-weight: 600;
+            color: #030303;
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .video-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: #606060;
+        }
+        
+        .video-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        
+        /* Buttons */
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .btn-primary {
+            background: var(--primary-blue);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #153047;
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #030303;
+        }
+        
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+        
+        .btn-success {
+            background: #2e7d32;
+            color: white;
+        }
+        
+        .btn-warning {
+            background: #f57c00;
+            color: white;
+        }
+        
+        .btn-small {
+            padding: 4px 12px;
+            font-size: 12px;
+        }
+        
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 24px;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 24px;
+        }
+        
+        .tab {
+            padding: 12px 0;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            font-weight: 500;
+            color: #606060;
+            transition: all 0.2s;
+        }
+        
+        .tab.active {
+            color: var(--primary-blue);
+            border-bottom-color: var(--primary-blue);
+        }
+        
+        /* Forms */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 500;
+            color: #030303;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(30, 61, 89, 0.1);
+        }
+        
+        .form-textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        /* Calendar */
+        .calendar-container {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        
+        .calendar-nav {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background: #e0e0e0;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .calendar-day {
+            background: white;
+            min-height: 100px;
+            padding: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .calendar-day:hover {
+            background: var(--light-gray);
+        }
+        
+        .calendar-day-header {
+            font-size: 12px;
+            font-weight: 600;
+            color: #606060;
+            margin-bottom: 4px;
+        }
+        
+        .calendar-events {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .calendar-event {
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .event-video {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .event-short {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+        
+        .event-live {
+            background: #ffebee;
+            color: #d32f2f;
+        }
+        
+        .event-post {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+        
+        /* Playlists */
+        .playlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        
+        .playlist-card {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .playlist-card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .playlist-thumbnail {
+            width: 100%;
+            height: 118px;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+        }
+        
+        .playlist-overlay {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 40%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .playlist-count {
+            font-size: 18px;
+            font-weight: 500;
+            color: white;
+        }
+        
+        .playlist-title {
+            margin-top: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #030303;
+        }
+        
+        /* Assets */
+        .asset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 16px;
+        }
+        
+        .asset-item {
+            background: white;
+            border: 2px dashed #e0e0e0;
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .asset-item:hover {
+            border-color: var(--primary-blue);
+            border-style: solid;
+        }
+        
+        .asset-item.uploaded {
+            border-style: solid;
+            background: var(--light-gray);
+        }
+        
+        .asset-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+            opacity: 0.6;
+        }
+        
+        .asset-item.uploaded .asset-icon {
+            opacity: 1;
+            color: var(--primary-blue);
+        }
+        
+        .asset-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #030303;
+            margin-bottom: 4px;
+        }
+        
+        .asset-size {
+            font-size: 11px;
+            color: #606060;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .modal-header {
+            padding: 24px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #030303;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #606060;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+        
+        .modal-close:hover {
+            background: var(--light-gray);
+        }
+        
+        .modal-body {
+            padding: 24px;
+            overflow-y: auto;
+            flex: 1;
+        }
+        
+        .modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+        
+        /* AI Tools */
+        .ai-tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .ai-tool-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .ai-tool-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .ai-tool-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--light-gray);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .ai-tool-title {
+            font-weight: 600;
+            color: #030303;
+        }
+        
+        .ai-tool-status {
+            font-size: 12px;
+            color: #606060;
+        }
+        
+        /* Script Editor */
+        .script-editor {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            height: 600px;
+        }
+        
+        .script-panel {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .script-content {
+            flex: 1;
+            overflow-y: auto;
+            background: var(--light-gray);
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .video-preview {
+            background: #000;
+            border-radius: 8px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        /* Upload Area */
+        .upload-area {
+            border: 2px dashed #e0e0e0;
+            border-radius: 12px;
+            padding: 48px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary-blue);
+            background: var(--light-gray);
+        }
+        
+        .upload-area.dragging {
+            border-color: var(--primary-blue);
+            background: #e3f2fd;
+            border-style: solid;
+        }
+        
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.6;
+        }
+        
+        /* Voice Cloning */
+        .voice-sample-list {
+            display: grid;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        
+        .voice-sample {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: var(--light-gray);
+            border-radius: 8px;
+        }
+        
+        .voice-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        .voice-info {
+            flex: 1;
+        }
+        
+        .voice-name {
+            font-weight: 600;
+            color: #030303;
+        }
+        
+        .voice-accent {
+            font-size: 12px;
+            color: #606060;
+        }
+        
+        /* Progress Tracker */
+        .progress-section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .progress-bar {
+            background: #e0e0e0;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 16px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-blue);
+            transition: width 0.3s ease;
+        }
+        
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #606060;
+        }
+
+        /* Asset Generator */
+        .asset-generator {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .generator-canvas {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            margin: 16px 0;
+            background: white;
+        }
+
+        .color-picker-group {
+            display: flex;
+            gap: 16px;
+            margin: 16px 0;
+        }
+
+        .color-input {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .color-input input[type="color"] {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* End Screen Templates */
+        .endscreen-templates {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .endscreen-template {
+            aspect-ratio: 16/9;
+            background: #f0f0f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .endscreen-template:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        /* Lower Thirds */
+        .lower-third-preview {
+            width: 100%;
+            height: 100px;
+            background: #000;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .lower-third {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: var(--primary-blue);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 200px;
+            }
+            
+            .script-editor {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            
+            .header-actions {
+                display: none;
+            }
+            
+            .dashboard-grid,
+            .video-grid,
+            .ai-tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="brand-logo">
+                    <span id="brandIcon">🎯</span>
+                    <span id="brandName">ASCEND AFRICA</span>
+                    <span class="youtube-badge">YouTube</span>
+                </div>
+                <div class="brand-switcher">
+                    <label>Brand:</label>
+                    <select id="brandSelector" onchange="switchBrand()">
+                        <option value="ascend">ASCEND AFRICA</option>
+                        <option value="generic">Generic Template</option>
+                        <option value="custom">Custom Brand...</option>
+                    </select>
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="api-status disconnected" id="youtubeStatus">
+                    <span class="status-dot"></span>
+                    <span>YouTube API</span>
+                </div>
+                <div class="api-status disconnected" id="aiStatus">
+                    <span class="status-dot"></span>
+                    <span>AI Services</span>
+                </div>
+                <button class="btn btn-primary" onclick="connectAPIs()">
+                    Connect Services
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Main</div>
+                <div class="sidebar-item active" onclick="showSection('dashboard')">
+                    <span class="sidebar-icon">🏠</span>
+                    <span>Dashboard</span>
+                </div>
+                <div class="sidebar-item" onclick="showSection('channel')">
+                    <span class="sidebar-icon">📺</span>
+                    <span>Channel Setup</span>
+                </div>
+                <div class="sidebar-item" onclick="showSection('videos')">
+                    <span class="sidebar-icon">📹</span>
+                    <span>Videos</span>
+                </div>
+                <div class="sidebar-item" onclick="showSection('playlists')">
+                    <span class="sidebar-icon">📋</span>
+                    <span>Playlists</span>
+                </div>
+                <div class="sidebar-item" onclick="showSection('calendar')">
+                    <span class="sidebar-icon">📅</span>
+                    <span>90-Day Calendar</span>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Assets</div>
+                <div class="sidebar-item" onclick="showSection('branding')">
+                    <span class="sidebar-icon">🎨</span>
+                    <span>Branding</span>
+                </div>
+                <div class="sidebar-item" onclick="showSection('thumbnails')">
+                    <span class="sidebar-icon">🖼️</span>
+                    <span>Thumbnails</span>
+                </div>
+                <div class="sidebar-item" onclick="showSection('endscreens')">
+                    <span class="sidebar-icon">🎬</span>
+                    <span>End Screens</span>
+                </div>
+                <div class="sidebar-item" onclick="showSection('lower-thirds')">
+                    <span class="sidebar-icon">💬</span>
+                    <span>Lower Thirds</span>
+                </div>
+                <div class="sidebar-item" onclick="showSection('intros')">
+                    <span class="sidebar-icon">🎞️</span>
+                    <span>Intros & Outros</span>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Content</div>
+                <div class="sidebar-item" onclick="showSection('scripts')">
+                    <span class="sidebar-icon">📝</span>
+                    <span>Scripts</span>
+                </div>
+                <div class="sidebar-item" onclick="showSection('ai-tools')">
+                    <span class="sidebar-icon">🤖</span>
+                    <span>AI Tools</span>
+                </div>
+                <div class="sidebar-item" onclick="showSection('voice-avatar')">
+                    <span class="sidebar-icon">🎙️</span>
+                    <span>Voice & Avatar</span>
+                </div>
+                <div class="sidebar-item" onclick="showSection('video-editor')">
+                    <span class="sidebar-icon">✂️</span>
+                    <span>Video Editor</span>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Analytics</div>
+                <div class="sidebar-item" onclick="showSection('analytics')">
+                    <span class="sidebar-icon">📊</span>
+                    <span>Analytics</span>
+                </div>
+                <div class="sidebar-item" onclick="showSection('progress')">
+                    <span class="sidebar-icon">📈</span>
+                    <span>Progress Tracker</span>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Settings</div>
+                <div class="sidebar-item" onclick="showSection('integrations')">
+                    <span class="sidebar-icon">🔗</span>
+                    <span>Integrations</span>
+                </div>
+                <div class="sidebar-item" onclick="showSection('knowledge-base')">
+                    <span class="sidebar-icon">📚</span>
+                    <span>Knowledge Base</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Content Area -->
+        <div class="content">
+            <div class="content-inner">
+                <!-- Dashboard Section -->
+                <div id="dashboard" class="section active">
+                    <div class="page-header">
+                        <h1 class="page-title">YouTube Channel Dashboard</h1>
+                        <p class="page-subtitle">Complete overview of your ASCEND AFRICA channel</p>
+                    </div>
+                    
+                    <!-- Stats Grid -->
+                    <div class="dashboard-grid">
+                        <div class="stat-card">
+                            <div class="stat-value">0</div>
+                            <div class="stat-label">Subscribers</div>
+                            <div class="stat-change stat-up">
+                                <span>↑</span>
+                                <span>Ready to grow</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">0/120</div>
+                            <div class="stat-label">Videos (90 days)</div>
+                            <div class="stat-change">
+                                <span>40 first month</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">15</div>
+                            <div class="stat-label">Playlists Ready</div>
+                            <div class="stat-change stat-up">
+                                <span>✓</span>
+                                <span>All created</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">90</div>
+                            <div class="stat-label">Days Planned</div>
+                            <div class="stat-change">
+                                <span>Full calendar</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Channel Preview -->
+                    <div class="channel-preview">
+                        <div class="channel-banner" id="channelBannerPreview">
+                            <div class="banner-content">
+                                <h1>ASCEND AFRICA</h1>
+                                <p>Rising Through Sports, Transforming Lives</p>
+                            </div>
+                            <div class="banner-overlay" onclick="openModal('bannerModal')">
+                                <span style="font-size: 24px;">🖼️ Click to customize banner</span>
+                            </div>
+                        </div>
+                        
+                        <div class="channel-info">
+                            <div class="channel-avatar" id="channelAvatarPreview">
+                                <span>AA</span>
+                                <div class="avatar-overlay" onclick="openModal('avatarModal')">
+                                    📷
+                                </div>
+                            </div>
+                            <div class="channel-details">
+                                <div class="channel-name">ASCEND AFRICA</div>
+                                <div class="channel-handle">@AscendAfrica-x2g</div>
+                                <div class="channel-stats">
+                                    <span>0 subscribers</span>
+                                    <span>•</span>
+                                    <span>0 videos</span>
+                                    <span>•</span>
+                                    <span>Joined 2025</span>
+                                </div>
+                            </div>
+                            <button class="subscribe-btn">Subscribe</button>
+                        </div>
+                        
+                        <div class="channel-tabs">
+                            <div class="channel-tab active">HOME</div>
+                            <div class="channel-tab">VIDEOS</div>
+                            <div class="channel-tab">PLAYLISTS</div>
+                            <div class="channel-tab">COMMUNITY</div>
+                            <div class="channel-tab">ABOUT</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Actions -->
+                    <h3 style="margin: 24px 0 16px 0;">Quick Actions</h3>
+                    <div class="quick-actions">
+                        <div class="action-card" onclick="openModal('uploadVideoModal')">
+                            <div class="action-icon">📹</div>
+                            <div class="action-title">Upload Video</div>
+                            <div class="action-desc">Add your first video</div>
+                        </div>
+                        <div class="action-card" onclick="showSection('scripts')">
+                            <div class="action-icon">📝</div>
+                            <div class="action-title">View Scripts</div>
+                            <div class="action-desc">40+ ready scripts</div>
+                        </div>
+                        <div class="action-card" onclick="showSection('ai-tools')">
+                            <div class="action-icon">🤖</div>
+                            <div class="action-title">Generate Video</div>
+                            <div class="action-desc">AI video creation</div>
+                        </div>
+                        <div class="action-card" onclick="showSection('calendar')">
+                            <div class="action-icon">📅</div>
+                            <div class="action-title">Schedule Content</div>
+                            <div class="action-desc">90-day calendar</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Activity -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Channel Setup Progress</h3>
+                            <span style="color: #606060; font-size: 14px;">5 of 10 completed</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 50%;"></div>
+                        </div>
+                        <div style="display: grid; gap: 12px; margin-top: 16px;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <span style="color: #2e7d32;">✓</span>
+                                <span>Channel created</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <span style="color: #2e7d32;">✓</span>
+                                <span>Channel URL customized</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <span style="color: #2e7d32;">✓</span>
+                                <span>Playlists created</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <span style="color: #2e7d32;">✓</span>
+                                <span>Channel art uploaded</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <span style="color: #2e7d32;">✓</span>
+                                <span>Profile picture set</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <span style="color: #f57c00;">○</span>
+                                <span>Channel trailer uploaded</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <span style="color: #f57c00;">○</span>
+                                <span>First video published</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <span style="color: #f57c00;">○</span>
+                                <span>Channel verified</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <span style="color: #f57c00;">○</span>
+                                <span>Monetization enabled</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <span style="color: #f57c00;">○</span>
+                                <span>Analytics configured</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Channel Setup Section -->
+                <div id="channel" class="section">
+                    <div class="page-header">
+                        <h1 class="page-title">Channel Setup</h1>
+                        <p class="page-subtitle">Configure your YouTube channel settings</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Basic Information</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Channel Name</label>
+                            <input type="text" class="form-input" id="channelNameInput" value="ASCEND AFRICA">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Channel Handle</label>
+                            <input type="text" class="form-input" id="channelHandleInput" value="@AscendAfrica-x2g">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Channel URL</label>
+                            <input type="text" class="form-input" id="channelURLInput" value="https://www.youtube.com/@AscendAfrica-x2g" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Channel ID</label>
+                            <input type="text" class="form-input" value="UCPvtftmTnurOWS-gmCA2tbQ" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Channel Description</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">About Section</label>
+                            <textarea class="form-textarea" id="channelDescription">Welcome to ASCEND AFRICA - where sports excellence meets educational opportunity. We're transforming lives across Africa through sports training, educational programs, and community development. Join us as we rise together! 🏆⚽📚
+
+Our mission: Creating world-class sports academies that transform entire communities, building Africa's future one champion at a time.
+
+Subscribe for:
+• Elite sports training content
+• Inspiring success stories
+• Community transformation updates
+• Educational resources
+• Behind-the-scenes access
+
+🌍 Together, we rise. Together, we transform.</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Channel Keywords</label>
+                            <input type="text" class="form-input" value="ASCEND AFRICA, Sports Excellence, African Youth Development, Football Academy, Community Development, Education Through Sports">
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Contact Information</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Business Email</label>
+                            <input type="email" class="form-input" placeholder="contact@ascendafrica.org">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Location</label>
+                            <input type="text" class="form-input" value="The Gambia, West Africa">
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Social Media Links</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Website</label>
+                            <input type="url" class="form-input" placeholder="https://www.ascendafrica.org">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Instagram</label>
+                            <input type="text" class="form-input" placeholder="@ascendafrica">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Twitter/X</label>
+                            <input type="text" class="form-input" placeholder="@ascendafrica">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Facebook</label>
+                            <input type="text" class="form-input" placeholder="facebook.com/ascendafrica">
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary" onclick="saveChannelSettings()">Save Channel Settings</button>
+                </div>
+                
+                <!-- Videos Section -->
+                <div id="videos" class="section">
+                    <div class="page-header">
+                        <h1 class="page-title">Video Management</h1>
+                        <p class="page-subtitle">Manage all your YouTube videos</p>
+                    </div>
+                    
+                    <div class="tabs">
+                        <div class="tab active" onclick="filterVideos('all')">All Videos (120)</div>
+                        <div class="tab" onclick="filterVideos('draft')">Drafts (80)</div>
+                        <div class="tab" onclick="filterVideos('ready')">Ready to Upload (40)</div>
+                        <div class="tab" onclick="filterVideos('published')">Published (0)</div>
+                        <div class="tab" onclick="filterVideos('scheduled')">Scheduled (0)</div>
+                    </div>
+                    
+                    <div class="video-grid" id="videoGrid">
+                        <!-- Videos will be dynamically loaded here -->
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 24px;">
+                        <button class="btn btn-secondary" onclick="loadMoreVideos()">Load More Videos</button>
+                    </div>
+                </div>
+                
+                <!-- Playlists Section -->
+                <div id="playlists" class="section">
+                    <div class="page-header">
+                        <h1 class="page-title">Playlist Management</h1>
+                        <p class="page-subtitle">Organize your videos into playlists</p>
+                    </div>
+                    
+                    <div class="playlist-grid" id="playlistGrid">
+                        <!-- Playlists will be dynamically loaded here -->
+                    </div>
+                </div>
+                
+                <!-- 90-Day Calendar Section -->
+                <div id="calendar" class="section">
+                    <div class="page-header">
+                        <h1 class="page-title">90-Day Content Calendar</h1>
+                        <p class="page-subtitle">Complete content schedule for your channel launch</p>
+                    </div>
+                    
+                    <div class="calendar-container">
+                        <div class="calendar-header">
+                            <h3 id="calendarMonth">Month 1 - Launch Phase</h3>
+                            <div class="calendar-nav">
+                                <button class="btn btn-secondary" onclick="previousMonth()">← Previous</button>
+                                <select id="monthSelector" onchange="jumpToMonth()" style="padding: 8px; margin: 0 12px;">
+                                    <option value="1">Month 1 - Launch</option>
+                                    <option value="2">Month 2 - Growth</option>
+                                    <option value="3">Month 3 - Expansion</option>
+                                </select>
+                                <button class="btn btn-secondary" onclick="nextMonth()">Next →</button>
+                            </div>
+                        </div>
+                        
+                        <div class="calendar-grid" id="calendarGrid">
+                            <!-- Calendar will be populated by JavaScript -->
+                        </div>
+                        
+                        <div style="margin-top: 24px;">
+                            <h4>Content Schedule Overview</h4>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 16px;">
+                                <div style="background: #e3f2fd; padding: 16px; border-radius: 8px;">
+                                    <strong style="color: #1976d2;">Main Videos</strong>
+                                    <p style="font-size: 14px; margin-top: 4px;">Mon, Wed, Fri at 3 PM GMT</p>
+                                    <p style="font-size: 13px; color: #606060; margin-top: 8px;">40 videos in first month</p>
+                                </div>
+                                <div style="background: #fff3e0; padding: 16px; border-radius: 8px;">
+                                    <strong style="color: #f57c00;">YouTube Shorts</strong>
+                                    <p style="font-size: 14px; margin-top: 4px;">Daily at 12 PM GMT</p>
+                                    <p style="font-size: 13px; color: #606060; margin-top: 8px;">90 shorts total</p>
+                                </div>
+                                <div style="background: #ffebee; padding: 16px; border-radius: 8px;">
+                                    <strong style="color: #d32f2f;">Live Streams</strong>
+                                    <p style="font-size: 14px; margin-top: 4px;">Saturdays at 2 PM GMT</p>
+                                    <p style="font-size: 13px; color: #606060; margin-top: 8px;">Weekly Q&A sessions</p>
+                                </div>
+                                <div style="background: #f3e5f5; padding: 16px; border-radius: 8px;">
+                                    <strong style="color: #7b1fa2;">Community Posts</strong>
+                                    <p style="font-size: 14px; margin-top: 4px;">Tue & Thu flexible</p>
+                                    <p style="font-size: 13px; color: #606060; margin-top: 8px;">Polls, updates, photos</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Branding Section -->
+                <div id="branding" class="section">
+                    <div class="page-header">
+                        <h1 class="page-title">Channel Branding Assets</h1>
+                        <p class="page-subtitle">Manage all your visual branding elements</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Primary Assets</h3>
+                        </div>
+                        <div class="asset-grid">
+                            <div class="asset-item uploaded" onclick="viewAsset('banner')">
+                                <div class="asset-icon">🖼️</div>
+                                <div class="asset-title">Channel Banner</div>
+                                <div class="asset-size">2048 x 1152</div>
+                            </div>
+                            <div class="asset-item uploaded" onclick="viewAsset('profile')">
+                                <div class="asset-icon">👤</div>
+                                <div class="asset-title">Profile Picture</div>
+                                <div class="asset-size">800 x 800</div>
+                            </div>
+                            <div class="asset-item uploaded" onclick="viewAsset('watermark')">
+                                <div class="asset-icon">💧</div>
+                                <div class="asset-title">Video Watermark</div>
+                                <div class="asset-size">150 x 150</div>
+                            </div>
+                            <div class="asset-item" onclick="generateBannerVariations()">
+                                <div class="asset-icon">🎨</div>
+                                <div class="asset-title">Banner Variations</div>
+                                <div class="asset-size">Generate new</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Logo Variations</h3>
+                        </div>
+                        <div class="asset-grid">
+                            <div class="asset-item uploaded" onclick="viewAsset('logo-full')">
+                                <div class="asset-icon">🎨</div>
+                                <div class="asset-title">Full Logo</div>
+                                <div class="asset-size">SVG</div>
+                            </div>
+                            <div class="asset-item uploaded" onclick="viewAsset('logo-icon')">
+                                <div class="asset-icon">🔷</div>
+                                <div class="asset-title">Icon Only</div>
+                                <div class="asset-size">SVG</div>
+                            </div>
+                            <div class="asset-item uploaded" onclick="viewAsset('logo-white')">
+                                <div class="asset-icon">⚪</div>
+                                <div class="asset-title">White Version</div>
+                                <div class="asset-size">PNG</div>
+                            </div>
+                            <div class="asset-item uploaded" onclick="viewAsset('logo-black')">
+                                <div class="asset-icon">⚫</div>
+                                <div class="asset-title">Black Version</div>
+                                <div class="asset-size">PNG</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Brand Colors</h3>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px;">
+                            <div style="text-align: center;">
+                                <div style="width: 100%; height: 80px; background: #1E3D59; border-radius: 8px; margin-bottom: 8px;"></div>
+                                <strong>Primary Blue</strong>
+                                <div style="font-size: 14px; color: #606060;">#1E3D59</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="width: 100%; height: 80px; background: #F26419; border-radius: 8px; margin-bottom: 8px;"></div>
+                                <strong>Vibrant Orange</strong>
+                                <div style="font-size: 14px; color: #606060;">#F26419</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="width: 100%; height: 80px; background: #41B3A3; border-radius: 8px; margin-bottom: 8px;"></div>
+                                <strong>Forest Green</strong>
+                                <div style="font-size: 14px; color: #606060;">#41B3A3</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="width: 100%; height: 80px; background: #E8C547; border-radius: 8px; margin-bottom: 8px;"></div>
+                                <strong>Warm Sand</strong>
+                                <div style="font-size: 14px; color: #606060;">#E8C547</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Social Media Assets</h3>
+                        </div>
+                        <div class="asset-grid">
+                            <div class="asset-item" onclick="generateSocialAssets('instagram')">
+                                <div class="asset-icon">📷</div>
+                                <div class="asset-title">Instagram</div>
+                                <div class="asset-size">1080 x 1080</div>
+                            </div>
+                            <div class="asset-item" onclick="generateSocialAssets('twitter')">
+                                <div class="asset-icon">🐦</div>
+                                <div class="asset-title">Twitter/X</div>
+                                <div class="asset-size">1500 x 500</div>
+                            </div>
+                            <div class="asset-item" onclick="generateSocialAssets('facebook')">
+                                <div class="asset-icon">📘</div>
+                                <div class="asset-title">Facebook</div>
+                                <div class="asset-size">820 x 312</div>
+                            </div>
+                            <div class="asset-item" onclick="generateSocialAssets('linkedin')">
+                                <div class="asset-icon">💼</div>
+                                <div class="asset-title">LinkedIn</div>
+                                <div class="asset-size">1584 x 396</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Thumbnails Section -->
+                <div id="thumbnails" class="section">
+                    <div class="page-header">
+                        <h1 class="page-title">Thumbnail Generator</h1>
+                        <p class="page-subtitle">Create eye-catching thumbnails for your videos</p>
+                    </div>
+                    
+                    <div class="asset-generator">
+                        <h3>Thumbnail Designer</h3>
+                        <canvas id="thumbnailCanvas" class="generator-canvas" width="1280" height="720"></canvas>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Title Text</label>
+                            <input type="text" class="form-input" id="thumbnailText" value="ASCEND AFRICA" onkeyup="updateThumbnail()">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Subtitle</label>
+                            <input type="text" class="form-input" id="thumbnailSubtitle" value="Rising Through Sports" onkeyup="updateT
